@@ -36,7 +36,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/tell1to/actv-19-11:latest
+            ghcr.io/tell1to/actv-19-11:1.0.1
             ghcr.io/tell1to/actv-19-11:${{ github.sha }}
 
 
