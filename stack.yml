@@ -1,13 +1,37 @@
-version: "3.9"
+version: "3.8"
 
 services:
   flask-app:
     image: ghcr.io/${GITHUB_REPOSITORY}/flask-app:latest
     deploy:
       replicas: 1
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "5000:80"
-    environment:
-      - PYTHONUNBUFFERED=1
+      labels:
+        - "traefik.enable=true"
+
+        # -------- HTTP --------
+        - "traefik.http.routers.flask.entrypoints=http"
+        - "traefik.http.routers.flask.rule=Host(`tudominio.com`)"
+
+        # Redirect HTTP → HTTPS
+        - "traefik.http.middlewares.flask-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.flask.middlewares=flask-https-redirect"
+
+        # -------- HTTPS --------
+        - "traefik.http.routers.flask-secure.entrypoints=https"
+        - "traefik.http.routers.flask-secure.rule=Host(`tudominio.com`)"
+        - "traefik.http.routers.flask-secure.tls=true"
+        - "traefik.http.routers.flask-secure.tls.certresolver=http"
+
+        # -------- SERVICE --------
+        - "traefik.http.routers.flask-secure.service=flask"
+        - "traefik.http.services.flask.loadbalancer.server.port=5000"
+
+        # -------- Network --------
+        - "traefik.docker.network=traefik-public"
+
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true
