@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.venv
+.env
+.env.*
+
+# Flask instance
+instance/
+*.db
+
+# Byte-compiled / optimized / DLL files
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+
+# Docker cache
+*.tar
+
+# VSCode
+.vscode/
