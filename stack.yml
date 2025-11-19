@@ -10,7 +10,7 @@ services:
 
         # -------- HTTP --------
         - "traefik.http.routers.flask.entrypoints=http"
-        - "traefik.http.routers.flask.rule=Host(`tudominio.com`)"
+        - "traefik.http.routers.flask.rule=Host(`tello-traefik.com`)"
 
         # Redirect HTTP → HTTPS
         - "traefik.http.middlewares.flask-https-redirect.redirectscheme.scheme=https"
@@ -18,7 +18,7 @@ services:
 
         # -------- HTTPS --------
         - "traefik.http.routers.flask-secure.entrypoints=https"
-        - "traefik.http.routers.flask-secure.rule=Host(`tudominio.com`)"
+        - "traefik.http.routers.flask-secure.rule=Host(`tello-traefik.com`)"
         - "traefik.http.routers.flask-secure.tls=true"
         - "traefik.http.routers.flask-secure.tls.certresolver=http"
 
