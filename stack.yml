@@ -1,32 +1,36 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  flask-app:
+  flaskapp:
     image: ghcr.io/${GITHUB_REPOSITORY}/flask-app:latest
     deploy:
       replicas: 1
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
       labels:
         - "traefik.enable=true"
 
-        # -------- HTTP --------
-        - "traefik.http.routers.flask.entrypoints=http"
-        - "traefik.http.routers.flask.rule=Host(`tello-traefik.com`)"
+        # ---------- HTTP ----------
+        - "traefik.http.routers.flaskapp.entrypoints=http"
+        - "traefik.http.routers.flaskapp.rule=Host(`tudominio.com`)"
 
-        # Redirect HTTP → HTTPS
-        - "traefik.http.middlewares.flask-https-redirect.redirectscheme.scheme=https"
-        - "traefik.http.routers.flask.middlewares=flask-https-redirect"
+        # HTTP → HTTPS
+        - "traefik.http.middlewares.flaskapp-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.flaskapp.middlewares=flaskapp-https-redirect"
 
-        # -------- HTTPS --------
-        - "traefik.http.routers.flask-secure.entrypoints=https"
-        - "traefik.http.routers.flask-secure.rule=Host(`tello-traefik.com`)"
-        - "traefik.http.routers.flask-secure.tls=true"
-        - "traefik.http.routers.flask-secure.tls.certresolver=http"
+        # ---------- HTTPS ----------
+        - "traefik.http.routers.flaskapp-secure.entrypoints=https"
+        - "traefik.http.routers.flaskapp-secure.rule=Host(`tudominio.com`)"
+        - "traefik.http.routers.flaskapp-secure.tls=true"
+        - "traefik.http.routers.flaskapp-secure.tls.certresolver=http"
 
-        # -------- SERVICE --------
-        - "traefik.http.routers.flask-secure.service=flask"
-        - "traefik.http.services.flask.loadbalancer.server.port=5000"
+        # Service name → "flaskapp"
+        - "traefik.http.routers.flaskapp-secure.service=flaskapp"
+        - "traefik.http.services.flaskapp.loadbalancer.server.port=5000"
 
-        # -------- Network --------
+        # Red requerida por Traefik
         - "traefik.docker.network=traefik-public"
 
     networks:
