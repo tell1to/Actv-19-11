@@ -36,5 +36,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/flask-app:latest
-            ghcr.io/${{ github.repository }}/flask-app:${{ github.sha }}
+            ghcr.io/tell1to-github/flask-app:latest
+            ghcr.io/tell1to-github/flask-app:${{ github.sha }}
