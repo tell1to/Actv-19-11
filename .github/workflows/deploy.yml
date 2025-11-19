@@ -14,17 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ----------------- CHECKOUT -----------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ----------------- PYTHON VERSION -----------------
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # ----------------- LOGIN GHCR -----------------
       - name: 🔐 Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -32,7 +29,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # ----------------- BUILD + PUSH -----------------
       - name: 🏗️ Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:

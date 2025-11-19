@@ -12,25 +12,20 @@ services:
       labels:
         - "traefik.enable=true"
 
-        # ---------- HTTP ----------
         - "traefik.http.routers.flaskapp.entrypoints=http"
         - "traefik.http.routers.flaskapp.rule=Host(`tudominio.com`)"
 
-        # HTTP → HTTPS
         - "traefik.http.middlewares.flaskapp-https-redirect.redirectscheme.scheme=https"
         - "traefik.http.routers.flaskapp.middlewares=flaskapp-https-redirect"
 
-        # ---------- HTTPS ----------
         - "traefik.http.routers.flaskapp-secure.entrypoints=https"
         - "traefik.http.routers.flaskapp-secure.rule=Host(`tudominio.com`)"
         - "traefik.http.routers.flaskapp-secure.tls=true"
         - "traefik.http.routers.flaskapp-secure.tls.certresolver=http"
 
-        # Service name → "flaskapp"
         - "traefik.http.routers.flaskapp-secure.service=flaskapp"
         - "traefik.http.services.flaskapp.loadbalancer.server.port=5000"
 
-        # Red requerida por Traefik
         - "traefik.docker.network=traefik-public"
 
     networks:
