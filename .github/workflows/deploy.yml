@@ -80,8 +80,9 @@ jobs:
           script: |
             echo "🚀 Desplegando la nueva versión de la aplicación..."
 
-            docker stack rm actv-19-11 || true
+            #docker stack rm actv-19-11 || true
 
+            echo "${{secrets.CR_PAT}}" | docker login ghcr.io -u tell1to --password-stdin
             docker pull ghcr.io/tell1to/actv-19-11/flask-app:main
 
-            docker stack deploy -c stack.yml actv-19-11 --with-registry-auth actv-19-11
+            #docker stack deploy -c stack.yml actv-19-11 --with-registry-auth actv-19-11
