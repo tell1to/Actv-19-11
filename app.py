@@ -14,7 +14,7 @@ def vista():
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Flask Bonito</title>
+        <title>App de flask</title>
         <style>
             body {
                 background: linear-gradient(135deg, #4e73df, #1cc88a);
