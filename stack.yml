@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   flaskapp:
-    image: ghcr.io/${GITHUB_REPOSITORY}/flask-app:latest
+    image: ghcr.io/tell1to/actv-19-11/flask-app:latest
     deploy:
       replicas: 1
       resources:
@@ -11,18 +11,14 @@ services:
           memory: 512M
       labels:
         - "traefik.enable=true"
-
         - "traefik.http.routers.flaskapp.entrypoints=http"
         - "traefik.http.routers.flaskapp.rule=Host(`tell1to-app-traefik.com`)"
-
         - "traefik.http.middlewares.flaskapp-https-redirect.redirectscheme.scheme=https"
         - "traefik.http.routers.flaskapp.middlewares=flaskapp-https-redirect"
-
         - "traefik.http.routers.flaskapp-secure.entrypoints=https"
         - "traefik.http.routers.flaskapp-secure.rule=Host(`tell1to-app-traefik.com`)"
         - "traefik.http.routers.flaskapp-secure.tls=true"
         - "traefik.http.routers.flaskapp-secure.tls.certresolver=http"
-
         - "traefik.http.routers.flaskapp-secure.service=flaskapp"
         - "traefik.http.services.flaskapp.loadbalancer.server.port=8302"
 
