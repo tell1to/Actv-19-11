@@ -13,13 +13,13 @@ services:
         - "traefik.enable=true"
 
         - "traefik.http.routers.flaskapp.entrypoints=http"
-        - "traefik.http.routers.flaskapp.rule=Host(`tudominio.com`)"
+        - "traefik.http.routers.flaskapp.rule=Host(`tell1to-app-traefik.com`)"
 
         - "traefik.http.middlewares.flaskapp-https-redirect.redirectscheme.scheme=https"
         - "traefik.http.routers.flaskapp.middlewares=flaskapp-https-redirect"
 
         - "traefik.http.routers.flaskapp-secure.entrypoints=https"
-        - "traefik.http.routers.flaskapp-secure.rule=Host(`tudominio.com`)"
+        - "traefik.http.routers.flaskapp-secure.rule=Host(`tell1to-app-traefik.com`)"
         - "traefik.http.routers.flaskapp-secure.tls=true"
         - "traefik.http.routers.flaskapp-secure.tls.certresolver=http"
 
