@@ -4,6 +4,7 @@ services:
   flaskapp:
     image: ghcr.io/tell1to/actv-19-11/flask-app:latest
     deploy:
+      replicas: 1
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.flaskapp.entrypoints=http"
