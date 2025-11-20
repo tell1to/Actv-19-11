@@ -24,7 +24,7 @@ services:
         - "traefik.http.routers.flaskapp-secure.tls.certresolver=http"
 
         - "traefik.http.routers.flaskapp-secure.service=flaskapp"
-        - "traefik.http.services.flaskapp.loadbalancer.server.port=5000"
+        - "traefik.http.services.flaskapp.loadbalancer.server.port=8302"
 
         - "traefik.docker.network=traefik-public"
 
